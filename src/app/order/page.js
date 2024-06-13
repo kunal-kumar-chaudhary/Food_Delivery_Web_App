@@ -4,32 +4,40 @@ import CustomerHeader from "@/app/_components/CustomerHeader";
 import Footer from "@/app/_components/Footer";
 import { useState, useEffect } from "react";
 import { DELIVERY_CHARGES, TAX } from "../lib/constant";
+import { useRouter } from "next/navigation";
 
 const page = () => {
-
+    const router = useRouter();
+    const [removeCartData, setRemoveCartData] = useState(false);
     const [userStorage, setUserStorage] = useState(JSON.parse(localStorage.getItem("user")));
   const [cartStorage, setCartStorage] = useState(
     JSON.parse(localStorage.getItem("cart"))
   );
   const [total] = useState(() =>
-    cartStorage.length === 1
+    cartStorage?.length === 1
       ? cartStorage[0].price
-      : cartStorage.reduce((a, b) => {
+      : cartStorage?.reduce((a, b) => {
           return a.price + b.price;
         })
   );
 
+  useEffect(() => {
+        if(!total){
+            router.push("/");
+        }
+  }, [total]);
+
   const orderNow = async () => {
-    let user_id = JSON.parse(localStorage.getItem("user"))._id;
+    let userId = JSON.parse(localStorage.getItem("user"))._id;
     let cart = JSON.parse(localStorage.getItem("cart"));
     let resto_id = cart[0].resto_id;
     let deliveryBoy_id = "660c42156c1b5373566d55bc"; 
     let foodItemIds = cart.map((item)=> item._id).toString(); // stringifyig the array of ids
 
     let collection = {
-        user_id,
-        resto_id,
+        userId,
         foodItemIds,
+        resto_id,
         deliveryBoy_id,
         status: "confirmed", 
         amount: total+DELIVERY_CHARGES+(total*TAX)/100,
@@ -43,9 +51,11 @@ const page = () => {
     let data = await response.json();
     if (data.success){
         alert("Order placed successfully");
+        setRemoveCartData(true);
+        router.push("myprofile");
     }
     else{
-
+        alert("Failed to place order");
     }
 
   }
@@ -53,7 +63,7 @@ const page = () => {
 
   return (
     <div>
-      <CustomerHeader />
+      <CustomerHeader removeCartData={removeCartData} />
       <div className="total-wrapper">
         <div className="block-1">
             <h2>User Details</h2>
