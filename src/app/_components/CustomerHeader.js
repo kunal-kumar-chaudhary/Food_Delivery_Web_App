@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const CustomerHeader = (props) => {
+  const userStorage = JSON.parse(localStorage.getItem("user"));
   const cartStorage = JSON.parse(localStorage.getItem("cart"));
   const [cartNumber, setCartNumber] = useState(cartStorage?.length);
   const [cartItem, setCartItem] = useState(cartStorage);
+  const [user, setUser] = useState(userStorage ? userStorage : undefined);
+  const router = useRouter();
 
   useEffect(() => {
     if (props.cartData) {
@@ -30,21 +34,25 @@ const CustomerHeader = (props) => {
     }
   }, [props.cartData]);
 
-  useEffect(()=>{
-      if(props.removeCartData){
-        let localCartItem = cartItem.filter((item)=>{
-            return item._id !== props.removeCartData;
-        });
-        setCartItem(localCartItem); 
-        setCartNumber(cartNumber - 1); 
-        localStorage.setItem("cart", JSON.stringify(localCartItem))
-        // if the length of cart has become zero, we will remove the cart 
-        if (localCartItem.length === 0){
-          localStorage.removeItem("cart")
-        }
+  useEffect(() => {
+    if (props.removeCartData) {
+      let localCartItem = cartItem.filter((item) => {
+        return item._id !== props.removeCartData;
+      });
+      setCartItem(localCartItem);
+      setCartNumber(cartNumber - 1);
+      localStorage.setItem("cart", JSON.stringify(localCartItem));
+      // if the length of cart has become zero, we will remove the cart
+      if (localCartItem.length === 0) {
+        localStorage.removeItem("cart");
       }
-
+    }
   }, [props.removeCartData]);
+
+  const logout = async () => {
+    localStorage.removeItem("user");
+    router.push("/user-auth");
+  }
 
   return (
     <div className="header-wrapper">
@@ -59,14 +67,29 @@ const CustomerHeader = (props) => {
           <Link href="/">Home</Link>
         </li>
 
+        {user ? (
+          <>
+            <li>
+              <Link href="/#">{user.name}</Link>
+            </li>
+            <li>
+              <button onClick={logout}>LogOut</button>
+            </li>
+          </>
+        ) : ( 
+          <>
+            <li>
+              <Link href="/">Login</Link>
+            </li>
+            <li>
+              <Link href="/user-auth">SignUp</Link>
+            </li>
+          </>
+        )}
         <li>
-          <Link href="/">Login</Link>
-        </li>
-        <li>
-          <Link href="/">SignUp</Link>
-        </li>
-        <li>
-          <Link href={cartNumber?"/cart":"#"}>Cart({cartNumber ? cartNumber : 0})</Link>
+          <Link href={cartNumber ? "/cart" : "#"}>
+            Cart({cartNumber ? cartNumber : 0})
+          </Link>
         </li>
         <li>
           <Link href="/">Add Restaurant</Link>

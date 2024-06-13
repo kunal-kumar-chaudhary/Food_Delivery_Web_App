@@ -4,8 +4,10 @@ import CustomerHeader from "@/app/_components/CustomerHeader";
 import Footer from "@/app/_components/Footer";
 import { useState, useEffect } from "react";
 import { DELIVERY_CHARGES, TAX } from "../lib/constant";
+import { useRouter } from "next/navigation";
 
 const page = () => {
+    const router = useRouter();
   const [cartStorage, setCartStorage] = useState(
     JSON.parse(localStorage.getItem("cart"))
   );
@@ -16,6 +18,19 @@ const page = () => {
           return a.price + b.price;
         })
   );
+
+
+  const orderNow = () => {
+    if(JSON.parse(localStorage.getItem("user"))){
+        router.push("/order");
+    }
+    else{
+        router.push("/user-auth?order=true");
+    }
+    
+  }
+
+
   return (
     <div>
       <CustomerHeader />
@@ -65,7 +80,7 @@ const page = () => {
           </div>
         </div>
         <div className="block-2">
-          <button>Order Now</button>
+          <button onClick={orderNow}>Order Now</button>
         </div>
       </div>
       <Footer />
