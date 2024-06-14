@@ -79,7 +79,8 @@ table img {
   width: 80px;
 }
 
-.main-page-banner , .restaurant-page-banner {
+.main-page-banner,
+.restaurant-page-banner {
   background-image: url("https://a.storyblok.com/f/88809/1150x450/30a9c4f9a6/igevia_header_fastfood01_450.jpg");
   background-color: rgb(0, 0, 0, 0.6);
   background-blend-mode: multiply;
@@ -133,7 +134,7 @@ table img {
   margin-top: 40px;
   margin-bottom: 50px;
 }
-.restaurant-wrapper { 
+.restaurant-wrapper {
   width: 45%;
   background-color: orange;
   margin: 10px;
@@ -141,29 +142,30 @@ table img {
   border-radius: 5px;
   cursor: pointer;
 }
-.restaurant-wrapper .heading-wrapper, .restaurant-wrapper .address-wrapper{
-padding-left: 15px;
-display: flex;
-justify-content: flex-start;
-} 
-.restaurant-wrapper h5{
+.restaurant-wrapper .heading-wrapper,
+.restaurant-wrapper .address-wrapper {
+  padding-left: 15px;
+  display: flex;
+  justify-content: flex-start;
+}
+.restaurant-wrapper h5 {
   margin-left: 15px;
 }
-.restaurant-page-banner h1{
+.restaurant-page-banner h1 {
   font-size: 65px;
 }
-.detail-wrapper{
+.detail-wrapper {
   display: flex;
   background-color: orange;
 }
-.detail-wrapper h3{
+.detail-wrapper h3 {
   width: 50%;
 }
-.food-item-wrapper{
+.food-item-wrapper {
   margin-top: 50px;
   margin-bottom: 50px;
 }
-.food-item-wrapper .list-item{
+.food-item-wrapper .list-item {
   padding: 20px;
   color: orange;
   font-weight: bold;
@@ -171,7 +173,7 @@ justify-content: flex-start;
   display: flex;
   text-transform: capitalize;
 }
-.food-item-wrapper .list-item button{
+.food-item-wrapper .list-item button {
   color: white;
   border: none;
   background-color: orange;
@@ -179,30 +181,30 @@ justify-content: flex-start;
   border-radius: 4px;
   cursor: pointer;
 }
-.food-item-wrapper .list-item img{
+.food-item-wrapper .list-item img {
   width: 100px;
   padding-right: 20px;
 }
-.food-item-wrapper .list-item .description{
+.food-item-wrapper .list-item .description {
   font-weight: lighter;
 }
-.list-item-block-1{
+.list-item-block-1 {
   width: 20%;
 }
-.list-item-block-2{
+.list-item-block-2 {
   width: 80%;
 }
-.list-item-block-3{
+.list-item-block-3 {
   width: 20%;
 }
-.total-wrapper{
+.total-wrapper {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   border-bottom: 1px solid orange;
   padding-bottom: 20px;
 }
-.total-wrapper .row{
+.total-wrapper .row {
   display: flex;
   justify-content: space-between;
   margin-left: 20%;
@@ -211,17 +213,28 @@ justify-content: flex-start;
   font-size: 20px;
   font-weight: bold;
 }
-.total-wrapper .block-1{
-  width: 70%;    
+.total-wrapper .block-1 {
+  width: 70%;
 }
-.total-wrapper .block-2{
+.total-wrapper .block-2 {
   width: 30%;
-} 
-.total-wrapper .block-2 button{
+}
+.total-wrapper .block-2 button {
   padding: 10px 25px;
   border: navajowhite;
   background-color: orange;
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
+}
+.auth-container {
+  display: flex;
+}
+.login-wrapper, .signup-wrapper {
+  height: 400px;
+  border: 1px solid #ccc;
+  margin: 50px;
+  padding: 20px;
+  width: 50%; 
+  text-align: center;
 }

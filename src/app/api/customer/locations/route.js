@@ -10,7 +10,7 @@ export async function GET(){
     // getting all the entries
     let result = await restaurantSchema.find();
     // converting the city names to capitalize the first letter
-    result = result.map((item) => item.city.charAt(0).toUpperCase()+item.city.slice(1));
+    result = result.map((item) => item?.city?.charAt(0).toUpperCase()+item?.city?.slice(1));
     // removing duplicate entries
     result = [...new Set(result)];
     if(result){
